@@ -53,6 +53,9 @@ module SmartSuite
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.open_timeout = 30
+        http.read_timeout = 30
+        http.write_timeout = 30
 
         request = case method
         when :get
@@ -70,6 +73,7 @@ module SmartSuite
         request["Authorization"] = "Token #{@api_key}"
         request["Account-Id"] = @account_id
         request["Content-Type"] = "application/json"
+        request["Connection"] = "close"
 
         request.body = JSON.generate(body) if body
 

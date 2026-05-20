@@ -27,6 +27,12 @@ class SmartSuiteServer
   end
 
   def run
+    # Force stdin to read as UTF-8 so non-ASCII characters (emojis, smart quotes, etc.)
+    # in tool call JSON don't raise Encoding::CompatibilityError on input.strip,
+    # which would cause the server to drop the request and leave Claude Code hanging
+    # indefinitely (error response lacks request id so client can't match it).
+    $stdin.set_encoding('UTF-8')
+
     SmartSuite::Logger.separator('=', 60)
     SmartSuite::Logger.server('SmartSuite MCP Server starting...')
     SmartSuite::Logger.separator('=', 60)

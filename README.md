@@ -2,6 +2,12 @@
 
 A Model Context Protocol (MCP) server for SmartSuite that enables AI assistants like Claude to interact with your SmartSuite workspace through natural language.
 
+> **This is a fork** of [Grupo-AFAL/smartsuite_mcp_server](https://github.com/Grupo-AFAL/smartsuite_mcp_server) maintained by [Michael Fafinski (@michaelfaf)](https://github.com/michaelfaf).
+>
+> ### Fixes in this fork
+> - **HTTP timeouts** — Added 30-second open/read/write timeouts and `Connection: close` header to prevent hung requests from blocking the Claude Code session indefinitely
+> - **UTF-8 stdin encoding** — Forces stdin to read as UTF-8 so emojis, smart quotes, and other non-ASCII characters in tool call JSON don't raise an `Encoding::CompatibilityError` that drops the request and leaves the client hanging
+
 [![Version](https://img.shields.io/badge/version-2.0.0-blue)]()
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)]()
 [![Coverage](https://img.shields.io/badge/coverage-92.78%25-brightgreen)]()
